@@ -1,0 +1,57 @@
+﻿@* @model FineBlog2.ViewModels.EditVM
+
+@{
+
+    ViewData["Title"] = "Edit User";
+}
+
+
+
+<div class="container-fluid">
+    <a class="btn btn-primary mb-2" asp-action="Index" asp-controller="User">Go back</a>
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h4 class="card-title text-white">Edit User</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" asp-controller="User" asp-area="Admin" method="post">
+                <div class="mb-2">
+                    <label>FirstName</label>
+                    <input type="text" asp-for="FirstName" class="form-control"/>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>LastName</label>
+                    <input type="text" asp-for="LastName" class="form-control"/>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Email</label>
+                    <input type="email" asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>UserName</label>
+                    <input type="text" asp-for="UserName" class="form-control"/>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <select asp-for="Role" class="form-control">
+                    <option value="WebsiteAdmin" selected="@(Model.Role == "WebsiteAdmin" ? "selected" : "")">Admin</option>
+                    <option value="WebsiteAuthor" selected="@(Model.Role == "WebsiteAuthor" ? "selected" : "")">Author</option>
+                </select>
+
+
+                <div class="mb-2">
+                    <button type="submit" class="btn btn-primary w-100">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+ *@

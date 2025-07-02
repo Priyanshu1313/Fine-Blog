@@ -1,0 +1,82 @@
+﻿@model FineBlog2.ViewModels.PageVM
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4">Contact Us</h1>
+        <p class="lead text-muted">Get in touch with us for any queries or support</p>
+    </div>
+
+    <!-- Card Wrapper -->
+    <div class="card shadow-sm border-0 rounded-2x">
+        <div class="card-body">
+            <form asp-action="Contact" asp-controller="Page" asp-area="Admin" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ThumbnailUrl" />
+
+                <div class="row g-4">
+                    <!-- Left Column: Text Inputs -->
+                    <div class="col-lg-8">
+                        <!-- Title -->
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="Title" class="form-control" placeholder="Page Title" />
+                            <label asp-for="Title">Title</label>
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Short Description -->
+                        <div class="form-floating mb-3">
+                            <input type="text" asp-for="ShortDescription" class="form-control" placeholder="Short Description" />
+                            <label asp-for="ShortDescription">Short Description</label>
+                            <span asp-validation-for="ShortDescription" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Rich Description -->
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="6" placeholder="Enter detailed description..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Thumbnail Preview & Upload -->
+                    <div class="col-lg-4">
+                        <div class="mb-4 text-center">
+                            <label class="form-label d-block">Current Thumbnail</label>
+                            <div class="border rounded overflow-hidden" style="height: 200px;">
+                                <img id="thumbnail" src="@(Model.ThumbnailUrl != null ? Url.Content($"~/Thumbnails/{Model.ThumbnailUrl}") : Url.Content("~/Thumbnails/Thumbnail.avif"))"
+                                     class="w-100 h-100 object-fit-cover" alt="Thumbnail Preview" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Thumbnail" class="form-label">Upload New Image</label>
+                            <input type="file" asp-for="Thumbnail" class="form-control" accept="image/*" />
+                            <span asp-validation-for="Thumbnail" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <a asp-action="Index" asp-controller="Post" class="btn btn-outline-secondary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.querySelector('[asp-for=Thumbnail]').addEventListener('change', function (e) {
+            const [file] = this.files;
+            if (file) {
+                document.getElementById('thumbnail').src = URL.createObjectURL(file);
+            }
+        });
+    </script>
+}
