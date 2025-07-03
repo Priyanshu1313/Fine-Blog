@@ -110,6 +110,8 @@ namespace FineBlog2.Areas.Admin.Controllers
             //get logged in user id
 
             var loggedInUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string firstname = await _context.ApplicationUsers.Where(x => x.Id == loggedInUser).Select(x => x.FirstName).FirstOrDefaultAsync();
+            string lastname = await _context.ApplicationUsers.Where(x => x.Id == loggedInUser).Select(x => x.LastName).FirstOrDefaultAsync();
             if (string.IsNullOrEmpty(loggedInUser))
             {
                 return Unauthorized();
@@ -119,7 +121,9 @@ namespace FineBlog2.Areas.Admin.Controllers
             post.Title = model.Title;
             post.ShortDescription = model.ShortDescription;
             post.Description = model.Description;
-            post.ApplicationUserId = loggedInUser;
+            post.ApplicationUserId = loggedInUser;           
+            post.AuthorName=firstname+" "+lastname;
+            
 
             if (post.Title != null)
             {
@@ -200,7 +204,9 @@ namespace FineBlog2.Areas.Admin.Controllers
                     ApplicationUserId = post.ApplicationUserId,
                     Description = post.Description,
                     ThumbnailUrl = post.ThumbnailUrl,
-                    CreatedDate = post.CreatedDate
+                    CreatedDate = post.CreatedDate,
+                    //FirstName = post.FirstName,
+                    //LastName = post.LastName,
 
                 };
             return View(vm);

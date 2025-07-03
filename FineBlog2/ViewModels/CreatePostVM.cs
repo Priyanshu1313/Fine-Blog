@@ -15,6 +15,9 @@ namespace FineBlog2.ViewModels
             public IFormFile? Thumbnail { get; set; }
 
             public DateTime? CreatedDate { get; set; }
-        
+            public string? AuthorName { get; set; }
+
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using AspNetCoreHero.ToastNotification.Notyf;
 using FineBlog2.Data;
 using FineBlog2.Models;
 using FineBlog2.ViewModels;
@@ -18,7 +19,7 @@ namespace FineBlog2.Areas.Admin.Controllers
         private readonly INotyfService _notification;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PageController(ApplicationDbContext context,INotyfService notyfService,IWebHostEnvironment webHostEnvironment)
+        public PageController(ApplicationDbContext context,IWebHostEnvironment webHostEnvironment,INotyfService notyfService)
         {
             _context = context;
             _notification = notyfService;
